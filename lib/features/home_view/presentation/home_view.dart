@@ -10,11 +10,11 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getAllProducts();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    getAllProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _HomeViewState extends State<HomeView> {
           if (asyncSnapshot.data == null) {
             return Center(child: Text("No Data"));
           }
-          print(productsList.length);
+          print("api data  = $productsList");
           return ListView.builder(
             itemCount: productsList.length,
             itemBuilder: (context, index) => Card(
@@ -62,5 +62,6 @@ getAllProducts() async {
   Dio dio = Dio();
   String api = "https://elwekala.onrender.com/product/Laptops";
   final response = await dio.get(api);
-  return response;
+  productsList = response.data;
+  return productsList;
 }
