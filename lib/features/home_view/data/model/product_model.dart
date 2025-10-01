@@ -1,59 +1,50 @@
 class Product {
   final String id;
-  final String status;
-  final String category;
   final String name;
-  final double price;
   final String description;
+  final double price;
   final String image;
-  final List<String> images;
+  final String category;
   final String company;
   final int countInStock;
   final int v;
   final int sales;
+  final String status;
+  final List<String> images;
 
   Product({
     required this.id,
-    required this.status,
-    required this.category,
     required this.name,
-    required this.price,
     required this.description,
+    required this.price,
     required this.image,
-    required this.images,
+    required this.category,
     required this.company,
     required this.countInStock,
     required this.v,
     required this.sales,
+    required this.status,
+    required this.images,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-    id: json["_id"],
-    status: json["status"],
-    category: json["category"],
-    name: json["name"],
-    price: json["price"]?.toDouble(),
-    description: json["description"],
-    image: json["image"],
-    images: List<String>.from(json["images"].map((x) => x)),
-    company: json["company"],
-    countInStock: json["countInStock"],
-    v: json["__v"],
-    sales: json["sales"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "_id": id,
-    "status": status,
-    "category": category,
-    "name": name,
-    "price": price,
-    "description": description,
-    "image": image,
-    "images": List<dynamic>.from(images.map((x) => x)),
-    "company": company,
-    "countInStock": countInStock,
-    "__v": v,
-    "sales": sales,
-  };
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['_id'] ?? '',
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
+      price: (json['price'] ?? 0).toDouble(),
+      image: json['image'] ?? defaultProductImage(),
+      category: json['category'] ?? '',
+      company: json['company'] ?? '',
+      countInStock: json['countInStock'] ?? 0,
+      v: json['__v'] ?? 0,
+      sales: json['sales'] ?? 0,
+      status: json['status'] ?? '',
+      images: (json['images'] as List<dynamic>? ?? [])
+          .map((x) => x.toString())
+          .toList(),
+    );
+  }
 }
+
+defaultProductImage() => 'https://via.placeholder.com/150';
