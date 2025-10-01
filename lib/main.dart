@@ -1,6 +1,4 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:nti_laptop_api/features/home_view/data/model/product_model.dart';
 import 'package:nti_laptop_api/features/home_view/presentation/home_view.dart';
 
 void main() {

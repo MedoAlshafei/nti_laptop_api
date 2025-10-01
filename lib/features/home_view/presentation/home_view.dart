@@ -15,26 +15,19 @@ class _HomeViewState extends State<HomeView> {
   String? error;
 
   Future<void> getData() async {
-    try {
-      Dio dio = Dio();
-      String api = "https://elwekala.onrender.com/product/Laptops";
-      var response = await dio.get(api);
-      var data = response.data;
-      if (data is Map && data['product'] is List) {
-        products = (data['product'] as List)
-            .where((item) => item != null && item is Map<String, dynamic>)
-            .map((item) => Product.fromJson(item as Map<String, dynamic>))
-            .toList();
-      } else {
-        error = 'Unexpected API response structure';
-      }
-    } catch (e) {
-      error = e.toString();
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
+    Dio dio = Dio();
+    String api = "https://elwekala.onrender.com/product/Laptops";
+    var response = await dio.get(api);
+    var data = response.data;
+    if (data is Map && data['product'] is List) {
+      products = (data['product'] as List)
+          .where((item) => item != null && item is Map<String, dynamic>)
+          .map((item) => Product.fromJson(item as Map<String, dynamic>))
+          .toList();
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
