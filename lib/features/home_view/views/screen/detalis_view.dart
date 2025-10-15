@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nti_laptop_api/features/fav/cubit/fav_cubit.dart';
-import 'package:nti_laptop_api/features/home_view/model/product_model.dart';
+import 'package:nti_laptop_api/features/home_view/data/product_model.dart';
 
 class DetalisView extends StatelessWidget {
   const DetalisView({super.key, required this.productData});
@@ -104,6 +104,26 @@ class DetalisView extends StatelessWidget {
                           Icon(Icons.favorite, color: Colors.red),
                           Text(
                             "Add to favorite",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        BlocProvider.of<FavCubit>(
+                          context,
+                        ).removeFavCubit(productData.id);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.remove, color: Colors.red),
+                          Text(
+                            "remove to favorite",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

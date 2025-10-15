@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nti_laptop_api/features/fav_list/views/favoite_list_view.dart';
 import 'package:nti_laptop_api/features/home_view/cubit/product_cubit.dart';
-import 'package:nti_laptop_api/features/home_view/view/screen/detalis_view.dart';
+import 'package:nti_laptop_api/features/home_view/views/screen/detalis_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -28,6 +29,19 @@ class HomeView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FavoiteListView(),
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.favorite, color: Colors.red[600]),
+                ),
+              ],
             ),
             body: ListView.builder(
               itemCount: state.listProduct.length,

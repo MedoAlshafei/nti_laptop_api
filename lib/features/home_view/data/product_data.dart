@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:nti_laptop_api/features/home_view/model/product_model.dart';
+import 'package:nti_laptop_api/features/home_view/data/product_model.dart';
 
 class ProductData {
   final Dio dio = Dio();
