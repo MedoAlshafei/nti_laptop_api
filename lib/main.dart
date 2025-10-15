@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:nti_laptop_api/features/home_view/presentation/home_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nti_laptop_api/features/fav/cubit/fav_cubit.dart';
+import 'package:nti_laptop_api/features/home_view/cubit/product_cubit.dart';
+import 'package:nti_laptop_api/features/home_view/view/screen/home_view.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Scaffold(body: HomeView()));
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ProductCubit()..getProductData()),
+        BlocProvider(create: (context) => FavCubit()),
+      ],
+      child: MaterialApp(home: Scaffold(body: HomeView())),
+    );
   }
 }
