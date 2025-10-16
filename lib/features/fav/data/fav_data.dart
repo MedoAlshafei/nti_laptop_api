@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:nti_laptop_api/features/fav/data/fav_list_model.dart';
 
 class FavData {
   final Dio dio = Dio();
@@ -20,5 +21,15 @@ class FavData {
     );
     print(repo.data);
     return repo.data["message"];
+  }
+
+  Future getFavData() async {
+    var repo = await dio.get(api, data: {"nationalId": "01578557885808"});
+    List data = repo.data["favoriteProducts"];
+    List<FavListModel> listData = data
+        .map((e) => FavListModel.fromJson(e))
+        .toList();
+    print(listData[0].name);
+    return listData;
   }
 }

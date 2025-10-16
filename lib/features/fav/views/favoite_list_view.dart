@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nti_laptop_api/features/fav/views/favoite_list_view.dart';
-import 'package:nti_laptop_api/features/home_view/cubit/product_cubit.dart';
-import 'package:nti_laptop_api/features/home_view/views/screen/detalis_view.dart';
+import 'package:nti_laptop_api/features/fav/cubit/fav_cubit.dart';
+import 'package:nti_laptop_api/features/fav/cubit/fav_state.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class FavoiteListView extends StatelessWidget {
+  const FavoiteListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductCubit, ProductState>(
+    return BlocBuilder<FavCubit, FavState>(
       builder: (context, state) {
-        if (state is ProductLoadingState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is ProductLoadedState) {
+        if (state is FavLoading) {
+          return Scaffold(
+            body: const Center(child: CircularProgressIndicator()),
+          );
+        } else if (state is FavError) {
+          return Scaffold(body: Center(child: Text(state.error)));
+        } else if (state is FavLoaded) {
           return Scaffold(
             appBar: AppBar(
               title: const Text(
-                "Laptops store",
+                "Shopping Cart",
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -29,49 +32,28 @@ class HomeView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FavoiteListView(),
-                      ),
-                    );
-                  },
-                  icon: Icon(Icons.favorite, color: Colors.red[600]),
-                ),
-              ],
             ),
             body: ListView.builder(
-              itemCount: state.listProduct.length,
+              itemCount: state.favListModel.length,
               itemBuilder: (context, index) {
                 return _bodyBuilderCard(state, index, context);
               },
             ),
           );
         }
-        return const SizedBox();
+        return Scaffold(appBar: AppBar());
       },
     );
   }
 
-  Card _bodyBuilderCard(ProductLoadedState state, int index, context) {
+  Card _bodyBuilderCard(FavLoaded state, int index, context) {
     return Card(
       margin: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       elevation: 5,
       color: Colors.grey[100],
       child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  DetalisView(productData: state.listProduct[index]),
-            ),
-          );
-        },
+        onTap: () {},
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +65,7 @@ class HomeView extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Image.network(
-                    state.listProduct[index].image,
+                    state.favListModel[index].image,
                     fit: BoxFit.fitWidth,
                     // width: double.infinity,
                     height: 200,
@@ -103,7 +85,7 @@ class HomeView extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      state.listProduct[index].name,
+                      state.favListModel[index].name,
                       textAlign: TextAlign.start,
                       style: const TextStyle(
                         fontSize: 20,
@@ -112,7 +94,7 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    state.listProduct[index].description,
+                    state.favListModel[index].description,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.start,
@@ -140,7 +122,7 @@ class HomeView extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                state.listProduct[index].price.toString(),
+                                state.favListModel[index].price.toString(),
                               ),
                             ),
                           ),
@@ -149,11 +131,11 @@ class HomeView extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            state.listProduct[index].status,
+                            state.favListModel[index].status,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: state.listProduct[index].status == "New"
+                              color: state.favListModel[index].status == "New"
                                   ? Colors.green
                                   : Colors.red,
                             ),
@@ -170,4 +152,52 @@ class HomeView extends StatelessWidget {
       ),
     );
   }
+
+  // Widget build(BuildContext context) {
+  //   return BlocBuilder<FavCubit, FavState>(
+  //     builder: (context, state) {
+  //       if (state is FavLoading) {
+  //         return const Center(child: CircularProgressIndicator());
+  //       } else if (state is FavError) {
+  //         return Text(state.error);
+  //       } else if (state is FavSuccess) {
+  //         return Scaffold(
+  //           appBar: AppBar(
+  //             title: const Text(
+  //               "Shopping Cart",
+  //               style: TextStyle(
+  //                 fontSize: 25,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: Colors.white,
+  //               ),
+  //             ),
+  //             centerTitle: true,
+  //             backgroundColor: Colors.lightBlue[500],
+  //             shape: RoundedRectangleBorder(
+  //               borderRadius: BorderRadius.circular(25),
+  //             ),
+  //           ),
+  //           body: Container(),
+  //         );
+  //       }
+  //       return Scaffold(
+  //         appBar: AppBar(
+  //           title: const Text(
+  //             "Shopping Cart",
+  //             style: TextStyle(
+  //               fontSize: 25,
+  //               fontWeight: FontWeight.bold,
+  //               color: Colors.black,
+  //             ),
+  //           ),
+  //           centerTitle: true,
+  //           backgroundColor: Colors.lightBlue[500],
+  //           shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(25),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 }

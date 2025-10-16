@@ -97,6 +97,7 @@ class DetalisView extends StatelessWidget {
                         BlocProvider.of<FavCubit>(
                           context,
                         ).addFavCubit(productData.id);
+                        BlocProvider.of<FavCubit>(context).getFavCubit();
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,23 +1,26 @@
-import 'package:equatable/equatable.dart';
+import 'package:nti_laptop_api/features/fav/data/fav_list_model.dart';
 
-sealed class FavState extends Equatable {
+sealed class FavState {
   const FavState();
-
-  @override
-  List<Object> get props => [];
 }
 
 final class FavInitial extends FavState {}
 
 final class FavLoading extends FavState {}
 
+final class FavLoaded extends FavState {
+  final List<FavListModel> favListModel;
+
+  const FavLoaded({required this.favListModel});
+}
+
 final class FavError extends FavState {
   final String error;
 
   const FavError({required this.error});
 
-  @override
-  List<Object> get props => [error];
+  // @override
+  // List<Object> get props => [error];
 }
 
 final class FavSuccess extends FavState {
@@ -25,6 +28,6 @@ final class FavSuccess extends FavState {
 
   const FavSuccess({required this.successMsg});
 
-  @override
-  List<Object> get props => [successMsg];
+  // @override
+  // List<Object> get props => [successMsg];
 }
