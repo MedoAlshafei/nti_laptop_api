@@ -10,28 +10,27 @@ class FavoiteListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<FavCubit>(context);
     return Scaffold(
+      backgroundColor: Colors.grey[350],
+      appBar: AppBar(
+        title: const Text(
+          "Favorite List",
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.lightBlue[500],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      ),
       body: BlocBuilder<FavCubit, FavState>(
         builder: (context, state) {
           if (state is FavLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is FavError) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text(
-                  "favorite items",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                centerTitle: true,
-                backgroundColor: Colors.lightBlue[500],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-              ),
-              body: Padding(
+            return SizedBox(
+              child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -56,23 +55,8 @@ class FavoiteListView extends StatelessWidget {
                 ),
               );
             }
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text(
-                  "favorite items",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                centerTitle: true,
-                backgroundColor: Colors.lightBlue[500],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-              ),
-              body: ListView.builder(
+            return Expanded(
+              child: ListView.builder(
                 itemCount: state.list.length,
                 itemBuilder: (context, index) {
                   return _bodyBuilderCard(state, index, context, () {});
