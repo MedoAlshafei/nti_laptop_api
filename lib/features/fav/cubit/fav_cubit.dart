@@ -34,7 +34,7 @@ class FavCubit extends Cubit<FavState> {
       emit(FavLoading());
       final data = await favData.getFavData();
       emit(FavSuccess(list: data));
-      print(data);
+      print(data[0]);
     } catch (e) {
       emit(FavError(error: e.toString()));
     }

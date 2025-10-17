@@ -8,7 +8,7 @@ class FavData {
   addFavData(String id) async {
     var repo = await dio.post(
       api,
-      data: {"nationalId": "01578557885808", "productId": id},
+      data: {"nationalId": "01210567022258", "productId": id},
     );
     print(repo.data);
     return repo.data["message"];
@@ -17,26 +17,27 @@ class FavData {
   removeFavData(String id) async {
     var repo = await dio.delete(
       api,
-      data: {"nationalId": "01578557885808", "productId": id},
+      data: {"nationalId": "01210567022258", "productId": id},
     );
     print(repo.data);
     return repo.data["message"];
   }
 
-  Future<List<FavListModel>> getFavData() async {
-    var repo = await dio.get(api, data: {"nationalId": "01578557885808"});
+  getFavData() async {
+    var repo = await dio.get(api, data: {"nationalId": "01210567022258"});
     List data = repo.data["favoriteProducts"];
     List<FavListModel> listData = data
         .map((e) => FavListModel.fromJson(e))
         .toList();
-    print(listData[0].name);
+    print(repo.data);
+    print(listData[0]);
     return listData;
   }
 
   updateFavData(String id) async {
     var repo = await dio.put(
       api,
-      data: {"nationalId": "01578557885808", "productId": id},
+      data: {"nationalId": "01210567022258", "productId": id},
     );
     print(repo.data);
     return repo.data["message"];

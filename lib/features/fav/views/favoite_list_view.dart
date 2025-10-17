@@ -15,25 +15,36 @@ class FavoiteListView extends StatelessWidget {
           if (state is FavLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is FavError) {
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.error, color: Colors.red, size: 50),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Failed to load favorites:',
-                    style: TextStyle(fontSize: 18, color: Colors.red),
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text(
+                  "favorite items",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 5),
-                  Text(state.error, textAlign: TextAlign.center),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => cubit.getFavCubit(),
-
-                    child: const Text('Retry'),
-                  ),
-                ],
+                ),
+                centerTitle: true,
+                backgroundColor: Colors.lightBlue[500],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text(
+                        'Error: ${state.error}',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           } else if (state is FavSuccess) {
@@ -64,7 +75,7 @@ class FavoiteListView extends StatelessWidget {
               body: ListView.builder(
                 itemCount: state.list.length,
                 itemBuilder: (context, index) {
-                  return _bodyBuilderCard(state, index, context);
+                  return _bodyBuilderCard(state, index, context, () {});
                 },
               ),
             );
@@ -75,14 +86,19 @@ class FavoiteListView extends StatelessWidget {
     );
   }
 
-  Card _bodyBuilderCard(FavSuccess state, int index, context) {
+  Widget _bodyBuilderCard(
+    FavSuccess state,
+    int index,
+    context,
+    void Function() onTap,
+  ) {
     return Card(
       margin: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       elevation: 5,
       color: Colors.grey[100],
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,6 +186,25 @@ class FavoiteListView extends StatelessWidget {
                         ],
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      BlocProvider.of<FavCubit>(
+                        context,
+                      ).removeFavCubit(state.list[index].id);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      elevation: 4,
+                    ),
+                    child: Text(
+                      "Remove from favorite",
+                      style: TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                    ),
                   ),
                 ],
               ),

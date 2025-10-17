@@ -12,3 +12,11 @@ final class CartInitial extends CartState {}
 final class Cartadd extends CartState {}
 
 final class CartRemove extends CartState {}
+
+final class CartUpdate extends CartState {
+  final int quantity;
+
+  const CartUpdate(this.quantity);
+  @override
+  List<Object> get props => [quantity];
+}

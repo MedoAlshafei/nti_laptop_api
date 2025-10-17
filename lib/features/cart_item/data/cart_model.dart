@@ -46,4 +46,22 @@ class CardModel {
       totalPrice: json['totalPrice'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'status': status,
+      'category': category,
+      'name': name,
+      'price': price,
+      'description': description,
+      'image': image,
+      'images': images,
+      'company': company,
+      'countInStock': countInStock,
+      'sales': sales,
+      'quantity': quantity,
+      'totalPrice': totalPrice,
+    };
+  }
 }
