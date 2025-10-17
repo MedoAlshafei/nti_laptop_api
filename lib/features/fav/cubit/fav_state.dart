@@ -8,26 +8,18 @@ final class FavInitial extends FavState {}
 
 final class FavLoading extends FavState {}
 
-final class FavLoaded extends FavState {
-  final List<FavListModel> favListModel;
-
-  const FavLoaded({required this.favListModel});
-}
+final class FavLoaded extends FavState {}
 
 final class FavError extends FavState {
   final String error;
 
   const FavError({required this.error});
-
-  // @override
-  // List<Object> get props => [error];
 }
 
 final class FavSuccess extends FavState {
-  final String successMsg;
+  final List<FavListModel> list;
 
-  const FavSuccess({required this.successMsg});
-
-  // @override
-  // List<Object> get props => [successMsg];
+  const FavSuccess({required this.list});
 }
+
+final class FavAdd extends FavState {}

@@ -115,9 +115,7 @@ class DetalisView extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        BlocProvider.of<FavCubit>(
-                          context,
-                        ).removeFavCubit(productData.id);
+                        BlocProvider.of<FavCubit>(context).getFavCubit();
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

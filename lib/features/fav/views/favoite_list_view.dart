@@ -8,45 +8,74 @@ class FavoiteListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavCubit, FavState>(
-      builder: (context, state) {
-        if (state is FavLoading) {
-          return Scaffold(
-            body: const Center(child: CircularProgressIndicator()),
-          );
-        } else if (state is FavError) {
-          return Scaffold(body: Center(child: Text(state.error)));
-        } else if (state is FavLoaded) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text(
-                "Shopping Cart",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+    final cubit = BlocProvider.of<FavCubit>(context);
+    return Scaffold(
+      body: BlocBuilder<FavCubit, FavState>(
+        builder: (context, state) {
+          if (state is FavLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is FavError) {
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.error, color: Colors.red, size: 50),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Failed to load favorites:',
+                    style: TextStyle(fontSize: 18, color: Colors.red),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(state.error, textAlign: TextAlign.center),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => cubit.getFavCubit(),
+
+                    child: const Text('Retry'),
+                  ),
+                ],
+              ),
+            );
+          } else if (state is FavSuccess) {
+            if (state.list.isEmpty) {
+              return Center(
+                child: Text(
+                  'No favorite items found.',
+                  style: TextStyle(fontSize: 18),
+                ),
+              );
+            }
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text(
+                  "favorite items",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                centerTitle: true,
+                backgroundColor: Colors.lightBlue[500],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
                 ),
               ),
-              centerTitle: true,
-              backgroundColor: Colors.lightBlue[500],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
+              body: ListView.builder(
+                itemCount: state.list.length,
+                itemBuilder: (context, index) {
+                  return _bodyBuilderCard(state, index, context);
+                },
               ),
-            ),
-            body: ListView.builder(
-              itemCount: state.favListModel.length,
-              itemBuilder: (context, index) {
-                return _bodyBuilderCard(state, index, context);
-              },
-            ),
-          );
-        }
-        return Scaffold(appBar: AppBar());
-      },
+            );
+          }
+          return const SizedBox.shrink();
+        },
+      ),
     );
   }
 
-  Card _bodyBuilderCard(FavLoaded state, int index, context) {
+  Card _bodyBuilderCard(FavSuccess state, int index, context) {
     return Card(
       margin: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
@@ -65,7 +94,7 @@ class FavoiteListView extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Image.network(
-                    state.favListModel[index].image,
+                    state.list[index].image,
                     fit: BoxFit.fitWidth,
                     // width: double.infinity,
                     height: 200,
@@ -85,7 +114,7 @@ class FavoiteListView extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      state.favListModel[index].name,
+                      state.list[index].name,
                       textAlign: TextAlign.start,
                       style: const TextStyle(
                         fontSize: 20,
@@ -94,7 +123,7 @@ class FavoiteListView extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    state.favListModel[index].description,
+                    state.list[index].description,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.start,
@@ -121,9 +150,7 @@ class FavoiteListView extends StatelessWidget {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                state.favListModel[index].price.toString(),
-                              ),
+                              child: Text(state.list[index].price.toString()),
                             ),
                           ),
                         ],
@@ -131,11 +158,11 @@ class FavoiteListView extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            state.favListModel[index].status,
+                            state.list[index].status,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: state.favListModel[index].status == "New"
+                              color: state.list[index].status == "New"
                                   ? Colors.green
                                   : Colors.red,
                             ),
@@ -152,52 +179,4 @@ class FavoiteListView extends StatelessWidget {
       ),
     );
   }
-
-  // Widget build(BuildContext context) {
-  //   return BlocBuilder<FavCubit, FavState>(
-  //     builder: (context, state) {
-  //       if (state is FavLoading) {
-  //         return const Center(child: CircularProgressIndicator());
-  //       } else if (state is FavError) {
-  //         return Text(state.error);
-  //       } else if (state is FavSuccess) {
-  //         return Scaffold(
-  //           appBar: AppBar(
-  //             title: const Text(
-  //               "Shopping Cart",
-  //               style: TextStyle(
-  //                 fontSize: 25,
-  //                 fontWeight: FontWeight.bold,
-  //                 color: Colors.white,
-  //               ),
-  //             ),
-  //             centerTitle: true,
-  //             backgroundColor: Colors.lightBlue[500],
-  //             shape: RoundedRectangleBorder(
-  //               borderRadius: BorderRadius.circular(25),
-  //             ),
-  //           ),
-  //           body: Container(),
-  //         );
-  //       }
-  //       return Scaffold(
-  //         appBar: AppBar(
-  //           title: const Text(
-  //             "Shopping Cart",
-  //             style: TextStyle(
-  //               fontSize: 25,
-  //               fontWeight: FontWeight.bold,
-  //               color: Colors.black,
-  //             ),
-  //           ),
-  //           centerTitle: true,
-  //           backgroundColor: Colors.lightBlue[500],
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(25),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 }

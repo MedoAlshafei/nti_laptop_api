@@ -1,4 +1,4 @@
-class FavListModel {
+class CardModel {
   final String id;
   final String name;
   final String description;
@@ -6,12 +6,13 @@ class FavListModel {
   final String image;
   final String category;
   final String company;
+  final List quantity;
   final int countInStock;
   final int sales;
   final String status;
   final List<String> images;
 
-  FavListModel({
+  CardModel({
     required this.id,
     required this.name,
     required this.description,
@@ -23,10 +24,11 @@ class FavListModel {
     required this.sales,
     required this.status,
     required this.images,
+    required this.quantity,
   });
 
-  factory FavListModel.fromJson(Map<String, dynamic> json) {
-    return FavListModel(
+  factory CardModel.fromJson(Map<String, dynamic> json) {
+    return CardModel(
       id: json['_id'] ?? "",
       name: json['name'] ?? '',
       description: json['description'] ?? '',
@@ -37,7 +39,8 @@ class FavListModel {
       countInStock: json['countInStock'] ?? '',
       sales: json['sales'] ?? '',
       status: json['status'] ?? '',
-      images: List<String>.from(json['images'] ?? []),
+      images: List<String>.from(json['images'] ?? ''),
+      quantity: json['quantity'] ?? '',
     );
   }
 }

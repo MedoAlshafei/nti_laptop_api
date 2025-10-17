@@ -16,6 +16,8 @@ class HomeView extends StatelessWidget {
         } else if (state is ProductLoadedState) {
           return Scaffold(
             appBar: AppBar(
+              scrolledUnderElevation: 0,
+              elevation: 0,
               title: const Text(
                 "Laptops store",
                 style: TextStyle(
@@ -29,25 +31,54 @@ class HomeView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FavoiteListView(),
-                      ),
-                    );
-                  },
-                  icon: Icon(Icons.favorite, color: Colors.red[600]),
-                ),
-              ],
             ),
             body: ListView.builder(
               itemCount: state.listProduct.length,
               itemBuilder: (context, index) {
                 return _bodyBuilderCard(state, index, context);
               },
+            ),
+            bottomNavigationBar: Container(
+              height: 85,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 6,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+                color: Colors.lightBlue[50],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.shopping_cart),
+                    color: Colors.grey[700],
+                    iconSize: 32,
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FavoiteListView(),
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.favorite),
+                    color: Colors.red[500],
+                    iconSize: 32,
+                  ),
+                ],
+              ),
             ),
           );
         }

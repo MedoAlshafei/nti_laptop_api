@@ -5,7 +5,7 @@ class FavData {
   final Dio dio = Dio();
   static const String api = "https://elwekala.onrender.com/favorite";
 
-  Future addFavData(String id) async {
+  addFavData(String id) async {
     var repo = await dio.post(
       api,
       data: {"nationalId": "01578557885808", "productId": id},
@@ -14,7 +14,7 @@ class FavData {
     return repo.data["message"];
   }
 
-  Future removeFavData(String id) async {
+  removeFavData(String id) async {
     var repo = await dio.delete(
       api,
       data: {"nationalId": "01578557885808", "productId": id},
@@ -23,7 +23,7 @@ class FavData {
     return repo.data["message"];
   }
 
-  Future getFavData() async {
+  Future<List<FavListModel>> getFavData() async {
     var repo = await dio.get(api, data: {"nationalId": "01578557885808"});
     List data = repo.data["favoriteProducts"];
     List<FavListModel> listData = data
@@ -31,5 +31,14 @@ class FavData {
         .toList();
     print(listData[0].name);
     return listData;
+  }
+
+  updateFavData(String id) async {
+    var repo = await dio.put(
+      api,
+      data: {"nationalId": "01578557885808", "productId": id},
+    );
+    print(repo.data);
+    return repo.data["message"];
   }
 }
