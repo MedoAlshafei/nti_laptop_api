@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nti_laptop_api/features/cart_item/views/screen/cart_view.dart';
 import 'package:nti_laptop_api/features/fav/views/favoite_list_view.dart';
 import 'package:nti_laptop_api/features/home_view/cubit/product_cubit.dart';
 import 'package:nti_laptop_api/features/home_view/views/screen/detalis_view.dart';
@@ -15,6 +16,7 @@ class HomeView extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ProductLoadedState) {
           return Scaffold(
+            backgroundColor: Colors.grey[350],
             appBar: AppBar(
               scrolledUnderElevation: 0,
               elevation: 0,
@@ -59,7 +61,12 @@ class HomeView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CartView()),
+                      );
+                    },
                     icon: Icon(Icons.shopping_cart),
                     color: Colors.grey[700],
                     iconSize: 32,

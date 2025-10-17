@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 class AuthData {
-  static loginAuth(String email, dynamic password) async {
+  static loginAuthData(String? email, dynamic password) async {
     try {
       final Dio dio = Dio();
       final String api = "https://elwekala.onrender.com/user/login";

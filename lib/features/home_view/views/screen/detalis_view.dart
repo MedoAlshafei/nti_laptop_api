@@ -13,7 +13,7 @@ class DetalisView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Laptops store",
+          "Laptops Details",
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,

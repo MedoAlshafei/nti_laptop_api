@@ -1,16 +1,17 @@
 class CardModel {
   final String id;
+  final String status;
+  final String category;
+  final num price;
   final String name;
   final String description;
-  final num price;
   final String image;
-  final String category;
+  final List<String> images;
   final String company;
-  final List quantity;
   final int countInStock;
   final int sales;
-  final String status;
-  final List<String> images;
+  final List quantity;
+  final num totalPrice;
 
   CardModel({
     required this.id,
@@ -25,22 +26,24 @@ class CardModel {
     required this.status,
     required this.images,
     required this.quantity,
+    required this.totalPrice,
   });
 
   factory CardModel.fromJson(Map<String, dynamic> json) {
     return CardModel(
       id: json['_id'] ?? "",
-      name: json['name'] ?? '',
-      description: json['description'] ?? '',
-      price: json['price'] ?? '',
-      image: json['image'] ?? '',
+      status: json['status'] ?? '',
       category: json['category'] ?? '',
+      name: json['name'] ?? '',
+      price: json['price'] ?? '',
+      description: json['description'] ?? '',
+      image: json['image'] ?? '',
+      images: List<String>.from(json['images'] ?? ''),
       company: json['company'] ?? '',
       countInStock: json['countInStock'] ?? '',
       sales: json['sales'] ?? '',
-      status: json['status'] ?? '',
-      images: List<String>.from(json['images'] ?? ''),
       quantity: json['quantity'] ?? '',
+      totalPrice: json['totalPrice'] ?? '',
     );
   }
 }

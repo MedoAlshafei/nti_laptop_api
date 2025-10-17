@@ -7,10 +7,10 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
-  loginAuth(String email, dynamic password) async {
+  loginAuthCubit(String email, dynamic password) async {
     emit(LoginLoading());
     try {
-      var repo = await AuthData.loginAuth(email, password);
+      var repo = await AuthData.loginAuthData(email, password);
       if (repo == null || repo["status"] == "error") {
         emit(
           LoginFailure(message: repo?['message'] ?? 'Unknown error occurred'),

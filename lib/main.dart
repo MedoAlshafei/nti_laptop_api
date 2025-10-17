@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nti_laptop_api/features/auth/cubit/auth_cubit.dart';
-import 'package:nti_laptop_api/features/auth/data/auth_data.dart';
 import 'package:nti_laptop_api/features/auth/views/screens/login.dart';
 import 'package:nti_laptop_api/features/cart_item/cubit/cart_cubit.dart';
 import 'package:nti_laptop_api/features/fav/cubit/fav_cubit.dart';
 import 'package:nti_laptop_api/features/home_view/cubit/product_cubit.dart';
-import 'package:nti_laptop_api/features/home_view/views/screen/home_view.dart';
 
 void main() {
-  AuthCubit().loginAuth;
   runApp(MyApp());
 }
 
@@ -22,14 +19,14 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ProductCubit()..getProductData()),
         BlocProvider(create: (context) => FavCubit()..getFavCubit()),
-        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => AuthCubit()..loginAuthCubit),
         BlocProvider(create: (context) => CartCubit()),
       ],
       child: MaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
-        home: Scaffold(body: HomeView()),
+        home: Scaffold(body: Login()),
       ),
     );
   }

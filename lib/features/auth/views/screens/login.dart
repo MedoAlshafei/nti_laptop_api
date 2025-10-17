@@ -13,6 +13,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -43,12 +44,15 @@ class Login extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextFormField(
+                cursorColor: Colors.lightBlue[500],
                 onTapOutside: (event) => FocusScope.of(context).unfocus(),
                 controller: passwordcontroller,
                 keyboardType: TextInputType.visiblePassword,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 obscureText: true,
                 decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -106,7 +110,7 @@ class Login extends StatelessWidget {
                   onPressed: state is LoginLoading
                       ? null
                       : () {
-                          BlocProvider.of<AuthCubit>(context).loginAuth(
+                          BlocProvider.of<AuthCubit>(context).loginAuthCubit(
                             emailcontroller.text,
                             passwordcontroller.text,
                           );
