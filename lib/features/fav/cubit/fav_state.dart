@@ -8,18 +8,6 @@ final class FavInitial extends FavState {}
 
 final class FavLoading extends FavState {}
 
-final class FavLoaded extends FavState {
-  final List<FavListModel> list;
-
-  const FavLoaded({required this.list});
-}
-
-final class FavError extends FavState {
-  final String error;
-
-  const FavError({required this.error});
-}
-
 final class FavSuccess extends FavState {
   final List<FavListModel> list;
 
@@ -27,3 +15,9 @@ final class FavSuccess extends FavState {
 }
 
 final class FavAdd extends FavState {}
+
+final class FavError extends FavState {
+  final String error;
+
+  const FavError({required this.error});
+}

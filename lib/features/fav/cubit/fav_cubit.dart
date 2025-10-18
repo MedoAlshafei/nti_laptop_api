@@ -12,7 +12,7 @@ class FavCubit extends Cubit<FavState> {
       emit(FavLoading());
       await favData.addFavData(productId);
       emit(FavAdd());
-      await getFavCubit(); // Reload favs after add
+      await getFavCubit();
     } catch (e) {
       emit(FavError(error: e.toString()));
     }
@@ -22,7 +22,7 @@ class FavCubit extends Cubit<FavState> {
     try {
       emit(FavLoading());
       await favData.removeFavData(productId);
-      emit(FavAdd());
+      emit(FavLoading());
       await getFavCubit();
     } catch (e) {
       emit(FavError(error: e.toString()));

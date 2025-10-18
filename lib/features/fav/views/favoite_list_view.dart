@@ -8,7 +8,6 @@ class FavoiteListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<FavCubit>(context);
     return Scaffold(
       backgroundColor: Colors.grey[350],
       appBar: AppBar(
@@ -55,7 +54,9 @@ class FavoiteListView extends StatelessWidget {
                 ),
               );
             }
-            return Expanded(
+            return SizedBox(
+              height: double.infinity,
+              width: double.infinity,
               child: ListView.builder(
                 itemCount: state.list.length,
                 itemBuilder: (context, index) {

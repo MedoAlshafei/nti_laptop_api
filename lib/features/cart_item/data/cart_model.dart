@@ -10,7 +10,7 @@ class CardModel {
   final String company;
   final int countInStock;
   final int sales;
-  final List quantity;
+  final int quantity;
   final num totalPrice;
 
   CardModel({

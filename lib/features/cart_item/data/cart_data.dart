@@ -1,12 +1,45 @@
 import 'package:dio/dio.dart';
+import 'package:nti_laptop_api/features/cart_item/data/cart_model.dart';
 
 class CartData {
   final Dio dio = Dio();
   final String api = "https://elwekala.onrender.com/cart/allProducts";
+  final String nid = "01578557885808";
+  // final String productId = "6466704691c71d884185b785";
+  // final int quantity = -2;
 
-  getCartData(String nid) async {
-    var repo = await dio.post(api, data: {"nationalId": nid});
-    print(repo.data["products"]);
-    return repo.data["products"];
+  getCartData() async {
+    var repo = await dio.get(api, data: {"nationalId": nid});
+    List data = repo.data["products"];
+    List<CardModel> listData = data.map((e) => CardModel.fromJson(e)).toList();
+    print(listData);
+    return listData;
+  }
+
+  addCartData(String id) async {
+    var repo = await dio.post(
+      "https://elwekala.onrender.com/cart/add",
+      data: {"nationalId": nid, "productId": id, "quantity": 1},
+    );
+    print(repo.data);
+    return repo;
+  }
+
+  // removeCartData(String id) async {
+  //   var repo = await dio.post(
+  //     "https://elwekala.onrender.com/cart/add",
+  //     data: {"nationalId": nid, "productId": id, "quantity": -1},
+  //   );
+  //   print(repo.data);
+  //   return repo;
+  // }
+
+  deleteCartData(String id) async {
+    var repo = await dio.delete(
+      "https://elwekala.onrender.com/cart/delete",
+      data: {"nationalId": nid, "productId": id, "quantity": 1},
+    );
+    print(repo.data);
+    return repo;
   }
 }

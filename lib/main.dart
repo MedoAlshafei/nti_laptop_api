@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ProductCubit()..getProductData()),
         BlocProvider(create: (context) => FavCubit()..getFavCubit()),
         BlocProvider(create: (context) => AuthCubit()..loginAuthCubit),
-        BlocProvider(create: (context) => CartCubit()),
+        BlocProvider(create: (context) => CartCubit()..getCartCubit()),
       ],
       child: MaterialApp(
         theme: ThemeData(
