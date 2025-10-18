@@ -8,6 +8,7 @@ class CustomTextFromField extends StatelessWidget {
     required this.hintText,
     required this.validator,
     required this.prefixIcon,
+    this.obscureText = false,
   });
 
   final TextEditingController emailcontroller;
@@ -15,6 +16,7 @@ class CustomTextFromField extends StatelessWidget {
   final String labelText;
   final String hintText;
   final Icon prefixIcon;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class CustomTextFromField extends StatelessWidget {
         keyboardType: TextInputType.emailAddress,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style: TextStyle(fontSize: 18),
+        obscureText: obscureText,
         decoration: InputDecoration(
           floatingLabelStyle: TextStyle(color: Color(0xff1B3AA0)),
           labelStyle: TextStyle(color: Colors.grey[700]),

@@ -56,6 +56,7 @@ class Login extends StatelessWidget {
               hintText: 'Enter your password',
               prefixIcon: Icon(Icons.lock),
               validator: MyValidators.passwordValidator,
+              obscureText: true,
             ),
             SizedBox(height: height * 0.02),
             Padding(
