@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nti_laptop_api/core/util/validator.dart';
 import 'package:nti_laptop_api/features/auth/cubit/auth_cubit.dart';
+import 'package:nti_laptop_api/features/auth/views/widgets/custom_text_from_field.dart';
 import 'package:nti_laptop_api/features/home_view/views/screen/home_view.dart';
 
 class Login extends StatelessWidget {
@@ -12,58 +13,66 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final height = size.height;
+    // final width = size.width;
+
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Color(0xfff8fafc),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: TextFormField(
-                cursorColor: Colors.lightBlue[500],
-                onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                controller: emailcontroller,
-                keyboardType: TextInputType.emailAddress,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  labelText: 'Email',
-                  hintText: 'Enter your email',
-                  prefixIcon: Icon(Icons.email),
-                ),
-                validator: MyValidators.emailValidator,
+            Text(
+              "Welcome Back",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
               ),
             ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: TextFormField(
-                cursorColor: Colors.lightBlue[500],
-                onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                controller: passwordcontroller,
-                keyboardType: TextInputType.visiblePassword,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                obscureText: true,
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  labelText: 'Password',
-                  hintText: 'Enter your password',
-                  prefixIcon: Icon(Icons.lock),
-                ),
-                validator: MyValidators.passwordValidator,
+            SizedBox(height: height * 0.02),
+            Text(
+              "Sign in to continue shopping",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Colors.grey[700],
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: height * 0.02),
+            CustomTextFromField(
+              emailcontroller: emailcontroller,
+              labelText: 'Email',
+              hintText: 'Enter your email',
+              prefixIcon: Icon(Icons.email),
+              validator: MyValidators.emailValidator,
+            ),
+            SizedBox(height: height * 0.02),
+            CustomTextFromField(
+              emailcontroller: passwordcontroller,
+              labelText: 'Password',
+              hintText: 'Enter your password',
+              prefixIcon: Icon(Icons.lock),
+              validator: MyValidators.passwordValidator,
+            ),
+            SizedBox(height: height * 0.02),
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff1B3AA0),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: height * 0.02),
             BlocConsumer<AuthCubit, AuthState>(
               listener: (context, state) {
                 if (state is LoginSuccess) {
@@ -100,7 +109,7 @@ class Login extends StatelessWidget {
               builder: (context, state) {
                 return ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    backgroundColor: Color(0xff1B3AA0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
