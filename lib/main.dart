@@ -5,6 +5,7 @@ import 'package:nti_laptop_api/features/auth/views/screens/login.dart';
 import 'package:nti_laptop_api/features/cart_item/cubit/cart_cubit.dart';
 import 'package:nti_laptop_api/features/fav/cubit/fav_cubit.dart';
 import 'package:nti_laptop_api/features/home_view/cubit/product_cubit.dart';
+import 'package:nti_laptop_api/features/nav_bar/cubit/nav_bar_cubit.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FavCubit()..getFavCubit()),
         BlocProvider(create: (context) => AuthCubit()..loginAuthCubit),
         BlocProvider(create: (context) => CartCubit()..getCartCubit()),
+        BlocProvider(create: (context) => NavBarCubit()),
       ],
       child: MaterialApp(
         theme: ThemeData(

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nti_laptop_api/core/util/validator.dart';
 import 'package:nti_laptop_api/features/auth/cubit/auth_cubit.dart';
 import 'package:nti_laptop_api/features/auth/views/widgets/custom_text_from_field.dart';
-import 'package:nti_laptop_api/features/home_view/views/screen/home_view.dart';
+import 'package:nti_laptop_api/features/my_app.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -86,7 +86,7 @@ class Login extends StatelessWidget {
                     );
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeView()),
+                      MaterialPageRoute(builder: (context) => MyHomeApp()),
                     );
                   }
                   if (state.data['status'] == 'error') {
