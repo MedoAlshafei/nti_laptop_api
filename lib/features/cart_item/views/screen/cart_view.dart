@@ -21,7 +21,14 @@ class CartView extends StatelessWidget {
         backgroundColor: Colors.lightBlue[500],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       ),
-      body: BlocBuilder<CartCubit, CartState>(
+      body: BlocConsumer<CartCubit, CartState>(
+        listener: (context, state) {
+          if (state is CartUpdate) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Quantity updated to ${state.quantity}')),
+            );
+          }
+        },
         builder: (context, state) {
           if (state is CartLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -66,10 +73,43 @@ class CartView extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                       title: Text(state.cartList[index].name),
-                      // subtitle: Text(state.cartList[index].description),
+                      subtitle: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              if (state.cartList[index].quantity > 1) {
+                                state.cartList[index].quantity--;
+                              }
+                              CartCubit.get(context).updateCartCubit(
+                                state.cartList[index].id,
+                                state.cartList[index].quantity,
+                              );
+                            },
+                            icon: Icon(Icons.remove),
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            state.cartList[index].quantity.toString(),
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          IconButton(
+                            onPressed: () {
+                              CartCubit.get(context).updateCartCubit(
+                                state.cartList[index].id,
+                                state.cartList[index].quantity,
+                              );
+                            },
+                            icon: Icon(Icons.add),
+                          ),
+                        ],
+                      ),
                       trailing: IconButton(
                         onPressed: () {
-                          BlocProvider.of<CartCubit>(
+                          CartCubit.get(
                             context,
                           ).deleteCartCubit(state.cartList[index].id);
                         },

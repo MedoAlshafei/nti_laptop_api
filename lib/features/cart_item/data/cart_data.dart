@@ -25,19 +25,19 @@ class CartData {
     return repo;
   }
 
-  // removeCartData(String id) async {
-  //   var repo = await dio.post(
-  //     "https://elwekala.onrender.com/cart/add",
-  //     data: {"nationalId": nid, "productId": id, "quantity": -1},
-  //   );
-  //   print(repo.data);
-  //   return repo;
-  // }
+  updateCartData(String id, num quantity) async {
+    var repo = await dio.put(
+      "https://elwekala.onrender.com/cart",
+      data: {"nationalId": nid, "productId": id, "quantity": quantity},
+    );
+    print(repo.data);
+    return repo;
+  }
 
   deleteCartData(String id) async {
     var repo = await dio.delete(
       "https://elwekala.onrender.com/cart/delete",
-      data: {"nationalId": nid, "productId": id, "quantity": 1},
+      data: {"nationalId": nid, "productId": id},
     );
     print(repo.data);
     return repo;

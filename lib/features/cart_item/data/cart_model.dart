@@ -10,8 +10,8 @@ class CardModel {
   final String company;
   final int countInStock;
   final int sales;
-  final int quantity;
   final num totalPrice;
+  num quantity;
 
   CardModel({
     required this.id,

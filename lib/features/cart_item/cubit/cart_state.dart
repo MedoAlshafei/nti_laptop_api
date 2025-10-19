@@ -27,10 +27,6 @@ final class CartError extends CartState {
   List<Object> get props => [error];
 }
 
-final class Cartadd extends CartState {}
-
-final class CartRemove extends CartState {}
-
 final class CartUpdate extends CartState {
   final int quantity;
 

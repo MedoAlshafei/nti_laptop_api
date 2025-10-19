@@ -5,6 +5,8 @@ import 'package:nti_laptop_api/features/auth/views/screens/login.dart';
 import 'package:nti_laptop_api/features/cart_item/cubit/cart_cubit.dart';
 import 'package:nti_laptop_api/features/fav/cubit/fav_cubit.dart';
 import 'package:nti_laptop_api/features/home_view/cubit/product_cubit.dart';
+import 'package:nti_laptop_api/features/home_view/views/screen/home_view.dart';
+import 'package:nti_laptop_api/features/my_app.dart';
 import 'package:nti_laptop_api/features/nav_bar/cubit/nav_bar_cubit.dart';
 
 void main() {
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
-        home: Scaffold(body: Login()),
+        home: Scaffold(body: MyHomeApp()),
       ),
     );
   }
