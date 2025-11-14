@@ -8,10 +8,12 @@ class CustomTextFromField extends StatelessWidget {
     required this.hintText,
     required this.validator,
     required this.prefixIcon,
+    required this.textInputType,
     this.obscureText = false,
   });
 
   final TextEditingController emailcontroller;
+  final TextInputType textInputType;
   final String? Function(String?)? validator;
   final String labelText;
   final String hintText;
@@ -26,7 +28,7 @@ class CustomTextFromField extends StatelessWidget {
         cursorColor: Color(0xff1B3AA0),
         onTapOutside: (event) => FocusScope.of(context).unfocus(),
         controller: emailcontroller,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: textInputType,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style: TextStyle(fontSize: 18),
         obscureText: obscureText,

@@ -120,7 +120,12 @@ class FavoiteListView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                state.list[index].name,
+                state.list[index].name
+                    .split(" ")
+                    .sublist(0, 3)
+                    .join(" ")
+                    .toString(),
+                overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start,
                 style: const TextStyle(
                   fontSize: 22,
