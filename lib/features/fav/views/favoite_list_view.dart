@@ -74,9 +74,18 @@ class FavoiteListView extends StatelessWidget {
               child: ListView.builder(
                 itemCount: state.list.length,
                 itemBuilder: (context, index) {
-                  return _bodyBuilderCard(state, index, context, () {
-                    cubit.addCartCubit(state.list[index].id);
-                  });
+                  if (state.list == 0) {
+                    return Center(
+                      child: Text(
+                        'No favorite items found.',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    );
+                  } else {
+                    return _bodyBuilderCard(state, index, context, () {
+                      cubit.addCartCubit(state.list[index].id);
+                    });
+                  }
                 },
               ),
             );
@@ -122,7 +131,7 @@ class FavoiteListView extends StatelessWidget {
               Text(
                 state.list[index].name
                     .split(" ")
-                    .sublist(0, 3)
+                    .sublist(0, 2)
                     .join(" ")
                     .toString(),
                 overflow: TextOverflow.ellipsis,
