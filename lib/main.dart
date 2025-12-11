@@ -6,6 +6,7 @@ import 'package:nti_laptop_api/features/fav/cubit/fav_cubit.dart';
 import 'package:nti_laptop_api/features/home_view/cubit/product_cubit.dart';
 import 'package:nti_laptop_api/features/my_app.dart';
 import 'package:nti_laptop_api/features/nav_bar/cubit/nav_bar_cubit.dart';
+import 'package:nti_laptop_api/core/theme/app_theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,9 +26,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => NavBarCubit()),
       ],
       child: MaterialApp(
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        ),
+        theme: AppTheme.lightTheme,
         home: Scaffold(body: MyHomeApp()),
       ),
     );
