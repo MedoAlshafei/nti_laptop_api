@@ -16,7 +16,6 @@ class HomeView extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ProductLoadedState) {
             return Scaffold(
-              backgroundColor: Color(0xffF8FAFC),
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(100),
                 child: CustomAppBar(),
