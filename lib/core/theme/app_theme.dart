@@ -24,5 +24,23 @@ class AppTheme {
         color: Colors.black,
       ),
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
+      enableFeedback: true,
+      elevation: 0,
+      
+    ),
+    // navigationBarTheme: NavigationBarThemeData(
+    //   backgroundColor: Colors.white,
+    //   elevation: 0,
+    //   indicatorColor: Colors.grey[300],
+    //   labelTextStyle: WidgetStateProperty.all(
+    //     TextStyle(
+    //       fontSize: 14,
+    //       fontWeight: FontWeight.w500,
+    //       color: Colors.black,
+    //     ),
+    //   ),
+    // ),
   );
 }
