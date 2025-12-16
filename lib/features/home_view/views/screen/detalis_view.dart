@@ -51,7 +51,8 @@ class DetalisView extends StatelessWidget {
                               Image.network(
                                 productData.images[index],
                                 height: 300,
-                                fit: BoxFit.fitWidth,
+                                width: size.width,
+                                fit: BoxFit.contain,
                               ),
                             ],
                           );
